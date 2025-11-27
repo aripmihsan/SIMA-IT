@@ -16,7 +16,8 @@ class Category extends Model
 
     protected $fillable = [
         'name',        // Nama kategori
-        'description'  // Deskripsi opsional
+        'description',
+        'image'  // Deskripsi opsional
     ];
 
     /**

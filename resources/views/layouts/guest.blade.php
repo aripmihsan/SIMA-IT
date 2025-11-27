@@ -5,76 +5,101 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }} - Login Premium</title>
+        <title>{{ config('app.name', 'SIMA PRO') }}</title>
 
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+        
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
             tailwind.config = {
                 darkMode: 'class',
                 theme: {
                     extend: {
-                        fontFamily: { sans: ['Inter', 'sans-serif'] },
+                        fontFamily: { 
+                            sans: ['Inter', 'sans-serif'],
+                            display: ['Outfit', 'sans-serif'],
+                        },
                         colors: {
-                            luxury: {
-                                950: '#0a0a0a', 
-                                900: '#121212',
-                                800: '#1E1E1E',
-                                'gold-dark': '#9a7b22',
-                                'gold': '#D4AF37',
-                                'gold-light': '#f5e0a3',
+                            gold: {
+                                400: '#FACC15', // Kuning terang
+                                500: '#D4AF37', // Emas Standar
+                                600: '#B49328', // Emas Gelap
+                            },
+                            dark: {
+                                900: '#050505', // Hitam Pekat
+                                800: '#0F0F0F', // Hitam Panel
                             }
                         },
                         animation: {
-                            'blob-slow': 'blob 20s infinite alternate',
+                            'float': 'float 8s ease-in-out infinite',
+                            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         },
                         keyframes: {
-                            blob: {
-                                '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                                '100%': { transform: 'translate(50px, -50px) scale(1.1)' },
+                            float: {
+                                '0%, 100%': { transform: 'translateY(0)' },
+                                '50%': { transform: 'translateY(-20px)' },
                             }
-                        },
-                        boxShadow: {
-                            'gold-glow': '0 0 25px -5px rgba(212, 175, 55, 0.5)',
                         }
                     }
                 }
             }
         </script>
         <style>
-             /* Background Ambient Light */
-             .bg-ambient-light {
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 0; overflow: hidden; pointer-events: none;
-            }
-            .light-blob-1 {
-                position: absolute; top: -10%; left: -10%; w: 50%; h: 50%;
-                background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0) 70%);
-                filter: blur(80px); animation: blob-slow 15s infinite alternate;
-            }
-            .light-blob-2 {
-                position: absolute; bottom: -10%; right: -10%; w: 60%; h: 60%;
-                background: radial-gradient(circle, rgba(154,123,34,0.1) 0%, rgba(0,0,0,0) 70%);
-                filter: blur(100px); animation: blob-slow 20s infinite alternate-reverse;
+            /* Pattern Background Kanan */
+            .bg-grid-pattern {
+                background-image: linear-gradient(to right, #1f1f1f 1px, transparent 1px),
+                                  linear-gradient(to bottom, #1f1f1f 1px, transparent 1px);
+                background-size: 40px 40px;
+                mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
             }
         </style>
     </head>
-    <body class="font-sans text-gray-300 antialiased bg-luxury-950 selection:bg-luxury-gold selection:text-black">
+    <body class="font-sans antialiased text-gray-300 bg-dark-900 overflow-hidden">
         
-        <div class="bg-ambient-light">
-            <div class="light-blob-1"></div>
-            <div class="light-blob-2"></div>
-        </div>
-
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 relative z-10 p-6">
-            <div class="w-full sm:max-w-md mt-6 px-8 py-10 bg-[#121212]/80 backdrop-blur-xl border border-luxury-gold/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] rounded-[2rem] relative overflow-hidden group">
-                <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent"></div>
-                
-                {{ $slot }}
-            </div>
+        <div class="min-h-screen flex">
             
-            <div class="mt-8 text-center text-xs text-luxury-gold/40 relative z-10">
-                &copy; 2025 PT. Cyber Teknologi. Premium Asset System.
+            <div class="w-full lg:w-[40%] flex flex-col justify-center px-8 sm:px-16 lg:px-24 bg-dark-900 relative z-20 border-r border-white/5">
+                <div class="lg:hidden mb-8">
+                     <span class="text-2xl font-display font-bold text-white">SIMA<span class="text-gold-500">PRO</span></span>
+                </div>
+
+                {{ $slot }}
+
+                <div class="mt-10 text-xs text-gray-600">
+                    &copy; 2025 Cyber Teknologi Corp. All rights reserved.
+                </div>
+            </div>
+
+            <div class="hidden lg:flex w-[60%] relative bg-[#0a0a0a] items-center justify-center overflow-hidden">
+                
+                <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+
+                <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/20 rounded-full blur-[120px] animate-pulse-slow"></div>
+                <div class="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-purple-900/20 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s"></div>
+
+                <div class="relative z-10 w-[80%] max-w-lg p-8 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-xl shadow-2xl animate-float">
+                    <div class="text-gold-500 text-6xl font-serif opacity-50 absolute -top-4 -left-4">"</div>
+                    
+                    <h3 class="text-3xl font-display font-bold text-white leading-tight mb-4">
+                        Manage Assets with <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-600">Premium Precision.</span>
+                    </h3>
+                    <p class="text-gray-400 text-lg font-light leading-relaxed">
+                        Selamat datang di sistem manajemen aset masa depan. Keamanan tingkat tinggi, antarmuka elegan, dan kontrol penuh di tangan Anda.
+                    </p>
+
+                    <div class="mt-8 flex items-center gap-4 pt-6 border-t border-white/10">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-gold-500 to-yellow-300 p-0.5">
+                            <img src="https://ui-avatars.com/api/?name=Cyber+Tech&background=000&color=fff" class="w-full h-full rounded-full object-cover">
+                        </div>
+                        <div>
+                            <p class="text-white font-bold text-sm">PT. Cyber Teknologi</p>
+                            <p class="text-gold-500 text-xs tracking-wider uppercase">Enterprise Edition</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </body>
