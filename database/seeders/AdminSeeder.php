@@ -13,11 +13,11 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'Administrator',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin123'), // Password admin
-            'role' => 'admin', // Pastikan kolom ini ada (dari Hari 2)
+            'password' => Hash::make('admin123'), 
+            'role' => 'admin', 
         ]);
         
-        // Kita buat juga 1 user karyawan buat tes
+        
         User::create([
             'name' => 'Karyawan IT',
             'email' => 'staff@cyber.id',

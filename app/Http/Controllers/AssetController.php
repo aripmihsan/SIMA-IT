@@ -14,20 +14,16 @@ class AssetController extends Controller
     // 1. TAMPILKAN SEMUA ASET
     public function index()
     {
-        // Mengambil aset beserta relasinya (Eager Loading) agar query cepat
         $assets = Asset::with(['category', 'location', 'supplier'])->latest()->get();
         return view('assets.index', compact('assets'));
     }
 
-    // 2. FORM TAMBAH (PENTING: Kirim data Master ke View)
+    // 2. FORM TAMBAH
     public function create()
     {
         $categories = Category::all();
         $locations = Location::all();
         $suppliers = Supplier::all();
-        
-        // Buat Kode Otomatis (Contoh: AST-2025-001) opsional, tapi keren
-        // Disini kita biarkan user input manual dulu sesuai KUK
         
         return view('assets.create', compact('categories', 'locations', 'suppliers'));
     }
@@ -47,9 +43,10 @@ class AssetController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
+        // Ambil semua data input
         $data = $request->all();
 
-        // Upload Gambar
+        // Cek jika ada file gambar yang diupload
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('assets', 'public');
         }
@@ -59,10 +56,9 @@ class AssetController extends Controller
         return redirect()->route('assets.index')->with('success', 'Aset berhasil didaftarkan!');
     }
 
-    // 4. EDIT & UPDATE & DELETE (Nanti kita lengkapi, fokus Create dulu)
+    // 4. FORM EDIT
     public function edit(Asset $asset)
     {
-        // Kita butuh data master lagi untuk dropdown
         $categories = Category::all();
         $locations = Location::all();
         $suppliers = Supplier::all();
@@ -70,10 +66,10 @@ class AssetController extends Controller
         return view('assets.edit', compact('asset', 'categories', 'locations', 'suppliers'));
     }
 
-   public function update(Request $request, Asset $asset)
+    // 5. UPDATE DATA (VERSI LEBIH AMAN)
+    public function update(Request $request, Asset $asset)
     {
         $request->validate([
-            // Code harus unique, TAPI pengecualian untuk id aset ini sendiri
             'code' => 'required|unique:assets,code,' . $asset->id,
             'name' => 'required|max:255',
             'category_id' => 'required',
@@ -85,26 +81,38 @@ class AssetController extends Controller
             'image' => 'nullable|image|max:2048'
         ]);
 
-        $data = $request->all();
+        // PERBAIKAN: Ambil semua data KECUALI image dulu
+        $data = $request->except('image');
 
         // Logika Ganti Gambar
         if ($request->hasFile('image')) {
-            // 1. Hapus gambar lama jika ada
+            // Hapus gambar lama jika ada
             if ($asset->image) {
                 Storage::disk('public')->delete($asset->image);
             }
-            // 2. Upload gambar baru
+            // Simpan gambar baru & masukkan ke array $data
             $data['image'] = $request->file('image')->store('assets', 'public');
         }
 
+        // Update database (gambar lama aman jika tidak ada upload baru)
         $asset->update($data);
 
         return redirect()->route('assets.index')->with('success', 'Data aset berhasil diperbarui!');
     }
     
+    // 6. HAPUS ASET
     public function destroy(Asset $asset) {
-        if($asset->image) Storage::disk('public')->delete($asset->image);
+        if($asset->image) {
+            Storage::disk('public')->delete($asset->image);
+        }
         $asset->delete();
         return redirect()->route('assets.index')->with('success', 'Aset dihapus');
+    }
+
+    // 7. DETAIL ASET (SHOW)
+    public function show(Asset $asset)
+    {
+        // Kita arahkan ke view detail
+        return view('assets.show', compact('asset')); 
     }
 }

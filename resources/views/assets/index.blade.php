@@ -17,13 +17,15 @@
             <p class="text-gray-400 mt-1 text-sm">Kelola seluruh perangkat keras dan lunak perusahaan.</p>
         </div>
         
-        <a href="{{ route('assets.create') }}" class="group relative px-6 py-3 bg-gradient-to-r from-luxury-gold to-luxury-gold-dark rounded-xl font-bold text-black shadow-gold-glow hover:scale-105 transition-transform overflow-hidden">
-            <span class="relative z-10 flex items-center gap-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                Registrasi Aset
-            </span>
-            <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-        </a>
+        @if(Auth::user()->role == 'admin')
+            <a href="{{ route('assets.create') }}" class="group relative px-6 py-3 bg-gradient-to-r from-luxury-gold to-luxury-gold-dark rounded-xl font-bold text-black shadow-gold-glow hover:scale-105 transition-transform overflow-hidden">
+                <span class="relative z-10 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    Registrasi Aset
+                </span>
+                <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </a>
+        @endif
     </div>
 
     <div class="premium-glass rounded-[2rem] overflow-hidden shadow-2xl relative animate-fade-in-up">
@@ -87,20 +89,26 @@
                             </td>
 
                             <td class="p-6 text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    
-                                    <a href="{{ route('assets.edit', $item->id) }}" class="p-2 rounded-lg hover:bg-luxury-gold/20 text-gray-500 hover:text-luxury-gold transition tooltip" title="Edit Data">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                                    </a>
+                                
+                                @if(Auth::user()->role == 'admin')
+                                    <div class="flex items-center justify-end gap-2">
+                                        
+                                        <a href="{{ route('assets.edit', $item->id) }}" class="p-2 rounded-lg hover:bg-luxury-gold/20 text-gray-500 hover:text-luxury-gold transition tooltip" title="Edit Data">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                        </a>
 
-                                    <form action="{{ route('assets.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus aset ini?');">
-                                        @csrf @method('DELETE')
-                                        <button type="submit" class="p-2 rounded-lg hover:bg-red-500/10 text-gray-500 hover:text-red-500 transition tooltip" title="Hapus Data">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                        </button>
-                                    </form>
+                                        <form action="{{ route('assets.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus aset ini?');">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="p-2 rounded-lg hover:bg-red-500/10 text-gray-500 hover:text-red-500 transition tooltip" title="Hapus Data">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                            </button>
+                                        </form>
 
-                                </div>
+                                    </div>
+                                @else
+                                    <span class="text-xs text-gray-600 italic bg-white/5 px-2 py-1 rounded">Read Only</span>
+                                @endif
+
                             </td>
                         </tr>
                     @empty
