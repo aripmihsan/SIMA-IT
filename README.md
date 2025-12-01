@@ -1,7 +1,8 @@
 # 💎 SIMA IT - Enterprise Asset Management
 
 ![App Screenshot](https://via.placeholder.com/1200x600?text=SIMA+IT+Dashboard+Preview)
-> **Sistem Informasi Manajemen Aset IT** dengan desain *Glassmorphism* premium (Black & Gold). Solusi digitalisasi gudang IT untuk melacak *hardware*, *software*, dan peminjaman ke karyawan secara *real-time*.
+
+> **Sistem Informasi Manajemen Aset IT** dengan desain _Glassmorphism_ premium (Black & Gold). Solusi digitalisasi gudang IT untuk melacak _hardware_, _software_, dan peminjaman ke karyawan secara _real-time_.
 
 ---
 
@@ -16,34 +17,38 @@ Dibangun menggunakan **Laravel 11** dan **Tailwind CSS**, aplikasi ini menawarka
 ## 🚀 Fitur Unggulan
 
 ### 🎨 Antarmuka (UI/UX Premium)
-- **Sultan Theme:** Desain eksklusif Hitam & Emas dengan efek *Glassmorphism*.
-- **Split Screen Login:** Halaman login modern dengan visual branding di sisi kiri.
-- **Responsive:** Tampilan optimal di Desktop dan Mobile.
-- **Interactive Dashboard:** Statistik *real-time* dan grafik visual.
+
+-   **Sultan Theme:** Desain eksklusif Hitam & Emas dengan efek _Glassmorphism_.
+-   **Split Screen Login:** Halaman login modern dengan visual branding di sisi kiri.
+-   **Responsive:** Tampilan optimal di Desktop dan Mobile.
+-   **Interactive Dashboard:** Statistik _real-time_ dan grafik visual.
 
 ### 🔐 Keamanan & Otorisasi
-- **Multi-Auth:** Pembedaan akses antara **Administrator** dan **Staff (Karyawan)**.
-- **Middleware Protection:** Mencegah akses paksa melalui URL (Error 403 Forbidden).
-- **Secure Password:** Enkripsi Bcrypt.
+
+-   **Multi-Auth:** Pembedaan akses antara **Administrator** dan **Staff (Karyawan)**.
+-   **Middleware Protection:** Mencegah akses paksa melalui URL (Error 403 Forbidden).
+-   **Secure Password:** Enkripsi Bcrypt.
 
 ### 🏢 Modul & Fungsionalitas
 
 #### 👨‍💼 1. Administrator (IT Manager)
-* **Executive Dashboard:** Melihat total aset, nilai valuasi aset (Rupiah), dan aset yang sedang dipinjam (Deployed).
-* **Manajemen Data Master:**
-    * **Kategori:** Mengelompokkan aset (Laptop, Server, ATK).
-    * **Lokasi:** Mengatur denah penyimpanan (Ruang Server, Gudang).
-    * **Supplier:** Mendata vendor tempat pembelian.
-* **Registrasi Aset:** Input barang dengan upload foto, serial number, dan harga.
-* **Sirkulasi Aset:**
-    * **Peminjaman (Check-out):** Menyerahkan aset ke karyawan (Stok berkurang otomatis).
-    * **Pengembalian (Check-in):** Mengembalikan status aset menjadi *Available*.
-* **Laporan PDF:** Cetak laporan inventaris otomatis menggunakan DomPDF.
+
+-   **Executive Dashboard:** Melihat total aset, nilai valuasi aset (Rupiah), dan aset yang sedang dipinjam (Deployed).
+-   **Manajemen Data Master:**
+    -   **Kategori:** Mengelompokkan aset (Laptop, Server, ATK).
+    -   **Lokasi:** Mengatur denah penyimpanan (Ruang Server, Gudang).
+    -   **Supplier:** Mendata vendor tempat pembelian.
+-   **Registrasi Aset:** Input barang dengan upload foto, serial number, dan harga.
+-   **Sirkulasi Aset:**
+    -   **Peminjaman (Check-out):** Menyerahkan aset ke karyawan (Stok berkurang otomatis).
+    -   **Pengembalian (Check-in):** Mengembalikan status aset menjadi _Available_.
+-   **Laporan PDF:** Cetak laporan inventaris otomatis menggunakan DomPDF.
 
 #### 🧑‍💻 2. Staff (Karyawan)
-* **My Inventory Dashboard:** Melihat daftar barang yang sedang dipinjam/dipegang saat ini.
-* **Katalog Aset:** Melihat daftar aset perusahaan (Read Only / Tanpa akses edit).
-* **Transparansi:** Memastikan data barang yang tercatat sesuai dengan fisik yang diterima.
+
+-   **My Inventory Dashboard:** Melihat daftar barang yang sedang dipinjam/dipegang saat ini.
+-   **Katalog Aset:** Melihat daftar aset perusahaan (Read Only / Tanpa akses edit).
+-   **Transparansi:** Memastikan data barang yang tercatat sesuai dengan fisik yang diterima.
 
 ---
 
@@ -55,17 +60,23 @@ Berikut adalah skema relasi antar tabel dalam aplikasi ini:
 
 ---
 
+## 🔄 Alur Sistem (UML Use Case)
+
+![UML Diagram](uml-sima.png)
+
+---
+
 ## 🛠️ Teknologi (Tech Stack)
 
-| Komponen | Teknologi |
-| :--- | :--- |
-| **Backend Framework** | Laravel 11.x |
-| **Frontend Framework** | Tailwind CSS (CDN) |
-| **Database** | MySQL |
-| **Template Engine** | Blade |
-| **PDF Generator** | Laravel DomPDF |
-| **Icons** | Heroicons (SVG) |
-| **Font** | Inter & Outfit (Google Fonts) |
+| Komponen               | Teknologi                     |
+| :--------------------- | :---------------------------- |
+| **Backend Framework**  | Laravel 11.x                  |
+| **Frontend Framework** | Tailwind CSS (CDN)            |
+| **Database**           | MySQL                         |
+| **Template Engine**    | Blade                         |
+| **PDF Generator**      | Laravel DomPDF                |
+| **Icons**              | Heroicons (SVG)               |
+| **Font**               | Inter & Outfit (Google Fonts) |
 
 ---
 
@@ -73,10 +84,10 @@ Berikut adalah skema relasi antar tabel dalam aplikasi ini:
 
 Gunakan akun berikut untuk simulasi UKK:
 
-| Role | Email | Password | Akses |
-| :--- | :--- | :--- | :--- |
-| **Administrator** | `admin@gmail.com` | `admin123` | **Full Control** (CRUD, Settings, Report) |
-| **Staff IT** | `staff@cyber.id` | `password123` | **Read Only** & Personal Inventory |
+| Role              | Email             | Password      | Akses                                     |
+| :---------------- | :---------------- | :------------ | :---------------------------------------- |
+| **Administrator** | `admin@gmail.com` | `admin123`    | **Full Control** (CRUD, Settings, Report) |
+| **Staff IT**      | `staff@cyber.id`  | `password123` | **Read Only** & Personal Inventory        |
 
 ---
 
@@ -85,6 +96,7 @@ Gunakan akun berikut untuk simulasi UKK:
 Ikuti langkah-langkah berikut secara berurutan untuk menjalankan proyek ini di komputer baru (Localhost).
 
 ### 1. Clone & Install Dependencies
+
 Buka Terminal (Git Bash / CMD / Terminal VS Code), lalu jalankan perintah berikut:
 
 ```bash
@@ -114,3 +126,4 @@ php artisan storage:link
 
 # 9. Jalankan Server Laravel
 php artisan serve
+```
