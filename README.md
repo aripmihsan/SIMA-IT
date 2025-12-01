@@ -1,59 +1,124 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💎 SIMA IT - Enterprise Asset Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![App Screenshot](https://via.placeholder.com/1200x600?text=SIMA+IT+Dashboard+Preview)
+> **Sistem Informasi Manajemen Aset IT** dengan desain *Glassmorphism* premium (Black & Gold). Solusi digitalisasi gudang IT untuk melacak *hardware*, *software*, dan peminjaman ke karyawan secara *real-time*.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🌟 Tentang Proyek
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**SIMA IT** dibangun untuk memenuhi standar **UKK (Uji Kompetensi Keahlian)** Teknik Informatika. Aplikasi ini menangani siklus hidup aset perusahaan mulai dari pengadaan, penyimpanan, pendistribusian ke karyawan, hingga pelaporan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Dibangun menggunakan **Laravel 11** dan **Tailwind CSS**, aplikasi ini menawarkan antarmuka modern yang responsif, aman, dan mudah digunakan.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🚀 Fitur Unggulan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🎨 Antarmuka (UI/UX Premium)
+- **Sultan Theme:** Desain eksklusif Hitam & Emas dengan efek *Glassmorphism*.
+- **Split Screen Login:** Halaman login modern dengan visual branding di sisi kiri.
+- **Responsive:** Tampilan optimal di Desktop dan Mobile.
+- **Interactive Dashboard:** Statistik *real-time* dan grafik visual.
 
-## Laravel Sponsors
+### 🔐 Keamanan & Otorisasi
+- **Multi-Auth:** Pembedaan akses antara **Administrator** dan **Staff (Karyawan)**.
+- **Middleware Protection:** Mencegah akses paksa melalui URL (Error 403 Forbidden).
+- **Secure Password:** Enkripsi Bcrypt.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🏢 Modul & Fungsionalitas
 
-### Premium Partners
+#### 👨‍💼 1. Administrator (IT Manager)
+* **Executive Dashboard:** Melihat total aset, nilai valuasi aset (Rupiah), dan aset yang sedang dipinjam (Deployed).
+* **Manajemen Data Master:**
+    * **Kategori:** Mengelompokkan aset (Laptop, Server, ATK).
+    * **Lokasi:** Mengatur denah penyimpanan (Ruang Server, Gudang).
+    * **Supplier:** Mendata vendor tempat pembelian.
+* **Registrasi Aset:** Input barang dengan upload foto, serial number, dan harga.
+* **Sirkulasi Aset:**
+    * **Peminjaman (Check-out):** Menyerahkan aset ke karyawan (Stok berkurang otomatis).
+    * **Pengembalian (Check-in):** Mengembalikan status aset menjadi *Available*.
+* **Laporan PDF:** Cetak laporan inventaris otomatis menggunakan DomPDF.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### 🧑‍💻 2. Staff (Karyawan)
+* **My Inventory Dashboard:** Melihat daftar barang yang sedang dipinjam/dipegang saat ini.
+* **Katalog Aset:** Melihat daftar aset perusahaan (Read Only / Tanpa akses edit).
+* **Transparansi:** Memastikan data barang yang tercatat sesuai dengan fisik yang diterima.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠️ Teknologi (Tech Stack)
 
-## Code of Conduct
+| Komponen | Teknologi |
+| :--- | :--- |
+| **Backend Framework** | Laravel 11.x |
+| **Frontend Framework** | Tailwind CSS (CDN) |
+| **Database** | MySQL |
+| **Template Engine** | Blade |
+| **PDF Generator** | Laravel DomPDF |
+| **Icons** | Heroicons (SVG) |
+| **Font** | Inter & Outfit (Google Fonts) |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 👤 Akun Pengujian (Default Credentials)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Gunakan akun berikut untuk simulasi UKK:
 
-## License
+| Role | Email | Password | Akses |
+| :--- | :--- | :--- | :--- |
+| **Administrator** | `admin@gmail.com` | `admin123` | **Full Control** (CRUD, Settings, Report) |
+| **Staff IT** | `staff@cyber.id` | `password123` | **Read Only** & Personal Inventory |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+
+## ⚙️ Panduan Instalasi (Cara Menjalankan Project)
+
+Ikuti langkah-langkah berikut secara berurutan untuk menjalankan proyek ini di komputer baru (Localhost).
+
+### 1. Clone & Install Dependencies
+Buka Terminal (Git Bash / CMD / Terminal VS Code), lalu jalankan perintah berikut:
+
+```bash
+# 1. Clone Repository (Download kodingan)
+git clone [https://github.com/username-kamu/sima-it.git](https://github.com/username-kamu/sima-it.git)
+
+# 2. Masuk ke Folder Project
+cd sima-it
+
+# 3. Install Library PHP (Wajib & Butuh Internet)
+composer install
+
+# 4. Install Library Frontend (Opsional jika pakai CDN, tapi disarankan)
+npm install && npm run build
+
+# 5. Duplikat file contoh environment
+cp .env.example .env
+
+# 6. Generate Kunci Aplikasi
+php artisan key:generate
+
+# 7. Buat Tabel & Isi Data Dummy (Seeder)
+php artisan migrate:fresh --seed
+
+# 8. Buat shortcut folder storage
+php artisan storage:link
+
+# 9. Jalankan Server Laravel
+php artisan serve
+
+
+***
+
+### 💡 Cara Update ke GitHub:
+Setelah kamu paste kode di atas ke file `README.md` di laptop, jangan lupa kirim ke GitHub biar aman:
+
+```bash
+git add README.md
+git commit -m "Update panduan instalasi lengkap"
+git push
+
+   ## 📊 Desain Database (ERD)
+
+![ERD SIMA IT](erd-sima.png)
