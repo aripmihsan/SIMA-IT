@@ -5,7 +5,6 @@
 @section('content')
     <div class="max-w-5xl mx-auto animate-fade-in-up">
         
-        <!-- Header Page -->
         <div class="flex justify-between items-end mb-8">
             <div>
                 <a href="{{ route('assets.index') }}" class="flex items-center gap-2 text-gray-500 hover:text-luxury-gold transition-colors mb-2 text-xs font-bold tracking-widest uppercase">
@@ -16,9 +15,21 @@
             </div>
         </div>
 
-        <!-- Form Card -->
+        @if ($errors->any())
+            <div class="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-400 text-sm animate-pulse">
+                <div class="flex items-center gap-2 mb-2 font-bold">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Gagal Menyimpan Data!
+                </div>
+                <ul class="list-disc list-inside opacity-80">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="premium-glass p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden border border-luxury-gold/10">
-            <!-- Dekorasi Cahaya -->
             <div class="absolute top-0 right-0 w-64 h-64 bg-luxury-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
 
             <form action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8 relative z-10">
@@ -26,7 +37,6 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     
-                    <!-- KOLOM KIRI -->
                     <div class="space-y-6">
                         <div class="flex items-center gap-2 pb-2 border-b border-white/5 mb-6">
                             <span class="w-2 h-2 rounded-full bg-luxury-gold"></span>
@@ -35,24 +45,24 @@
                         
                         <div class="group">
                             <label class="label-modern">Nama Barang</label>
-                            <input type="text" name="name" required class="input-modern" placeholder="Contoh: Macbook Pro M3 Max">
+                            <input type="text" name="name" value="{{ old('name') }}" required class="input-modern" placeholder="Contoh: Macbook Pro M3 Max">
                         </div>
 
                         <div class="grid grid-cols-2 gap-5">
                             <div class="group">
                                 <label class="label-modern">Kode Aset</label>
-                                <input type="text" name="code" required class="input-modern" placeholder="AST-2025-001">
+                                <input type="text" name="code" value="{{ old('code') }}" required class="input-modern" placeholder="AST-2025-001">
                             </div>
                             <div class="group">
                                 <label class="label-modern">Serial Number</label>
-                                <input type="text" name="serial_number" class="input-modern" placeholder="SN-XXXXX">
+                                <input type="text" name="serial_number" value="{{ old('serial_number') }}" class="input-modern" placeholder="SN-XXXXX">
                             </div>
                         </div>
 
                         <div class="group">
                             <label class="label-modern">Kategori</label>
                             <div class="relative">
-                                <select name="category_id" class="input-modern appearance-none cursor-pointer">
+                                <select name="category_id" class="input-modern appearance-none cursor-pointer" required>
                                     <option value="" disabled selected>-- Pilih Kategori --</option>
                                     @foreach($categories as $cat)
                                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -64,23 +74,17 @@
                             </div>
                         </div>
 
-                        <!-- INPUT HARGA (Fixed: Jarak Lebar & Bersih) -->
                         <div class="group">
                             <label class="label-modern">Harga Beli (IDR)</label>
                             <div class="relative">
-                                <!-- Tulisan Rp -->
                                 <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
                                     <span class="text-luxury-gold font-bold text-sm">Rp</span>
                                 </div>
-                                <!-- Input Angka: pl-16 (Padding Kiri 64px), Placeholder Kosong -->
-                                <input type="number" name="price" required 
-                                       class="input-modern pl-16" 
-                                       placeholder="" min="0">
+                                <input type="number" name="price" value="{{ old('price') }}" required class="input-modern pl-16" placeholder="" min="0">
                             </div>
                         </div>
                     </div>
 
-                    <!-- KOLOM KANAN -->
                     <div class="space-y-6">
                         <div class="flex items-center gap-2 pb-2 border-b border-white/5 mb-6">
                             <span class="w-2 h-2 rounded-full bg-luxury-gold"></span>
@@ -90,7 +94,7 @@
                         <div class="group">
                             <label class="label-modern">Lokasi Penempatan</label>
                             <div class="relative">
-                                <select name="location_id" class="input-modern appearance-none cursor-pointer">
+                                <select name="location_id" class="input-modern appearance-none cursor-pointer" required>
                                     <option value="" disabled selected>-- Pilih Lokasi --</option>
                                     @foreach($locations as $loc)
                                         <option value="{{ $loc->id }}">{{ $loc->name }}</option>
@@ -105,7 +109,7 @@
                         <div class="group">
                             <label class="label-modern">Supplier</label>
                             <div class="relative">
-                                <select name="supplier_id" class="input-modern appearance-none cursor-pointer">
+                                <select name="supplier_id" class="input-modern appearance-none cursor-pointer" required>
                                     <option value="" disabled selected>-- Pilih Supplier --</option>
                                     @foreach($suppliers as $sup)
                                         <option value="{{ $sup->id }}">{{ $sup->name }}</option>
@@ -140,14 +144,23 @@
 
                         <div class="group">
                             <label class="label-modern">Foto Aset</label>
-                            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-luxury-gold/20 border-dashed rounded-2xl cursor-pointer bg-black/20 hover:bg-luxury-gold/5 hover:border-luxury-gold hover:scale-[1.01] transition-all duration-300 group-hover:shadow-gold-sm">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-luxury-gold/20 border-dashed rounded-2xl cursor-pointer bg-black/20 hover:bg-luxury-gold/5 hover:border-luxury-gold hover:scale-[1.01] transition-all duration-300 group-hover:shadow-gold-sm relative overflow-hidden">
+                                
+                                <div id="upload-placeholder" class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <svg class="w-8 h-8 mb-3 text-luxury-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                     <p class="text-xs text-gray-400">Klik untuk upload <span class="font-bold text-luxury-gold">Gambar</span></p>
                                 </div>
-                                <input type="file" name="image" class="hidden" accept="image/*" /> 
+
+                                <div id="file-info" class="hidden absolute inset-0 flex-col items-center justify-center bg-black/80 w-full h-full">
+                                     <svg class="w-8 h-8 mb-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                     <p class="text-sm text-white font-bold px-4 text-center truncate w-full" id="file-name-text">...</p>
+                                     <p class="text-[10px] text-luxury-gold mt-1">Klik untuk ganti</p>
+                                </div>
+
+                                <input type="file" name="image" class="hidden" accept="image/*" onchange="updateFileName(this)" /> 
                             </label>
                         </div>
+
                     </div>
                 </div>
 
@@ -160,52 +173,31 @@
         </div>
     </div>
 
-    <style>
-        .label-modern { 
-            display: block; 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            color: #D4AF37; 
-            text-transform: uppercase; 
-            letter-spacing: 0.1em; 
-            margin-bottom: 0.5rem; 
+    <script>
+        function updateFileName(input) {
+            const file = input.files[0];
+            if (file) {
+                // Sembunyikan placeholder default
+                document.getElementById('upload-placeholder').classList.add('hidden');
+                // Tampilkan info file
+                const fileInfo = document.getElementById('file-info');
+                fileInfo.classList.remove('hidden');
+                fileInfo.classList.add('flex');
+                // Update teks nama file
+                document.getElementById('file-name-text').textContent = file.name;
+            }
         }
-        .input-modern { 
-            width: 100%; 
-            background-color: rgba(10, 10, 10, 0.6); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 1rem; 
-            padding: 0.8rem 1.25rem; 
-            color: white; 
-            font-size: 0.95rem;
-            transition: all 0.3s ease; 
-        }
-        .input-modern:focus { 
-            outline: none; 
-            border-color: #D4AF37; 
-            background-color: rgba(10, 10, 10, 0.9);
-            box-shadow: 0 0 20px -5px rgba(212, 175, 55, 0.2); 
-        }
-        
-        /* Memutihkan Ikon Kalender */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-            cursor: pointer;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-        }
-        input[type="date"]::-webkit-calendar-picker-indicator:hover {
-            opacity: 1;
-        }
+    </script>
 
-        /* Menghilangkan Panah Angka (Spinner) */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+    <style>
+        .label-modern { display: block; font-size: 0.7rem; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+        .input-modern { width: 100%; background-color: rgba(10, 10, 10, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; padding: 0.8rem 1.25rem; color: white; font-size: 0.95rem; transition: all 0.3s ease; }
+        .input-modern:focus { outline: none; border-color: #D4AF37; background-color: rgba(10, 10, 10, 0.9); box-shadow: 0 0 20px -5px rgba(212, 175, 55, 0.2); }
+        
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; opacity: 0.6; transition: opacity 0.2s; }
+        input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+        
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
     </style>
 @endsection

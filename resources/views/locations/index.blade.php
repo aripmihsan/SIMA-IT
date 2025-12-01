@@ -41,7 +41,6 @@
                         <th class="p-6 font-semibold rounded-tl-[2rem]">No</th>
                         <th class="p-6 font-semibold">Nama Lokasi</th>
                         <th class="p-6 font-semibold">Keterangan</th>
-                        <th class="p-6 font-semibold text-center">Total Aset</th>
                         <th class="p-6 font-semibold text-right rounded-tr-[2rem]">Aksi</th>
                     </tr>
                 </thead>
@@ -54,11 +53,6 @@
                             </td>
                             <td class="p-6 text-sm text-gray-400">
                                 {{ $item->description ?? '-' }}
-                            </td>
-                            <td class="p-6 text-center">
-                                <span class="px-4 py-1.5 rounded-full bg-luxury-900 border border-luxury-gold/20 text-xs font-bold text-luxury-gold shadow-sm">
-                                    {{ $item->assets->count() }} Unit
-                                </span>
                             </td>
                             <td class="p-6 text-right">
                                 <div class="flex items-center justify-end gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
@@ -76,7 +70,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="p-12 text-center text-gray-500">Belum ada data lokasi.</td>
+                            <td colspan="4" class="p-12 text-center text-gray-500">Belum ada data lokasi.</td>
                         </tr>
                     @endforelse
                 </tbody>

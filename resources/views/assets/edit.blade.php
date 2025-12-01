@@ -1,32 +1,29 @@
 @extends('layouts.master')
 
-@section('title', 'Registrasi Aset')
+@section('title', 'Edit Data Aset')
 
 @section('content')
     <div class="max-w-5xl mx-auto animate-fade-in-up">
         
-        <!-- Header Page -->
         <div class="flex justify-between items-end mb-8">
             <div>
                 <a href="{{ route('assets.index') }}" class="flex items-center gap-2 text-gray-500 hover:text-luxury-gold transition-colors mb-2 text-xs font-bold tracking-widest uppercase">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Kembali ke Daftar
                 </a>
-                <h1 class="text-4xl font-black text-white tracking-tight">Input Aset Baru</h1>
+                <h1 class="text-4xl font-black text-white tracking-tight">Edit Aset</h1>
+                <p class="text-gray-400 mt-1 text-sm">Mengubah data: <span class="text-luxury-gold font-bold">{{ $asset->name }}</span></p>
             </div>
         </div>
 
-        <!-- Form Card -->
         <div class="premium-glass p-8 md:p-10 rounded-[2.5rem] relative overflow-hidden border border-luxury-gold/10">
-            <!-- Dekorasi Cahaya -->
             <div class="absolute top-0 right-0 w-64 h-64 bg-luxury-gold/5 rounded-full blur-[80px] pointer-events-none"></div>
 
-            <form action="{{ route('assets.store') }}" method="POST" enctype="multipart/form-data" class="space-y-8 relative z-10">
-                @csrf
+            <form action="{{ route('assets.update', $asset->id) }}" method="POST" enctype="multipart/form-data" class="space-y-8 relative z-10">
+                @csrf @method('PUT')
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                     
-                    <!-- KOLOM KIRI -->
                     <div class="space-y-6">
                         <div class="flex items-center gap-2 pb-2 border-b border-white/5 mb-6">
                             <span class="w-2 h-2 rounded-full bg-luxury-gold"></span>
@@ -35,17 +32,17 @@
                         
                         <div class="group">
                             <label class="label-modern">Nama Barang</label>
-                            <input type="text" name="name" required class="input-modern" placeholder="Contoh: Macbook Pro M3 Max">
+                            <input type="text" name="name" value="{{ old('name', $asset->name) }}" required class="input-modern">
                         </div>
 
                         <div class="grid grid-cols-2 gap-5">
                             <div class="group">
                                 <label class="label-modern">Kode Aset</label>
-                                <input type="text" name="code" required class="input-modern" placeholder="AST-2025-001">
+                                <input type="text" name="code" value="{{ old('code', $asset->code) }}" required class="input-modern">
                             </div>
                             <div class="group">
                                 <label class="label-modern">Serial Number</label>
-                                <input type="text" name="serial_number" class="input-modern" placeholder="SN-XXXXX">
+                                <input type="text" name="serial_number" value="{{ old('serial_number', $asset->serial_number) }}" class="input-modern">
                             </div>
                         </div>
 
@@ -53,9 +50,10 @@
                             <label class="label-modern">Kategori</label>
                             <div class="relative">
                                 <select name="category_id" class="input-modern appearance-none cursor-pointer">
-                                    <option value="" disabled selected>-- Pilih Kategori --</option>
                                     @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        <option value="{{ $cat->id }}" {{ $asset->category_id == $cat->id ? 'selected' : '' }}>
+                                            {{ $cat->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-luxury-gold">
@@ -64,24 +62,21 @@
                             </div>
                         </div>
 
-                        <!-- INPUT HARGA (DIPERBAIKI: NO PLACEHOLDER & LEBIH LEBAR) -->
                         <div class="group">
                             <label class="label-modern">Harga Beli (IDR)</label>
                             <div class="relative">
-                                <!-- Tulisan Rp -->
                                 <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                                     <span class="text-luxury-gold font-bold text-sm">Rp</span>
                                 </div>
-                                
-                                <!-- Input Angka: Padding Kiri 64px (pl-16) dan Placeholder Kosong -->
-                                <input type="number" name="price" required 
+                                <input type="number" name="price" 
+                                       value="{{ old('price', $asset->price) }}" 
+                                       required 
                                        class="input-modern pl-16" 
                                        placeholder="" min="0">
                             </div>
                         </div>
                     </div>
 
-                    <!-- KOLOM KANAN -->
                     <div class="space-y-6">
                         <div class="flex items-center gap-2 pb-2 border-b border-white/5 mb-6">
                             <span class="w-2 h-2 rounded-full bg-luxury-gold"></span>
@@ -92,9 +87,10 @@
                             <label class="label-modern">Lokasi Penempatan</label>
                             <div class="relative">
                                 <select name="location_id" class="input-modern appearance-none cursor-pointer">
-                                    <option value="" disabled selected>-- Pilih Lokasi --</option>
                                     @foreach($locations as $loc)
-                                        <option value="{{ $loc->id }}">{{ $loc->name }}</option>
+                                        <option value="{{ $loc->id }}" {{ $asset->location_id == $loc->id ? 'selected' : '' }}>
+                                            {{ $loc->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-luxury-gold">
@@ -107,9 +103,10 @@
                             <label class="label-modern">Supplier</label>
                             <div class="relative">
                                 <select name="supplier_id" class="input-modern appearance-none cursor-pointer">
-                                    <option value="" disabled selected>-- Pilih Supplier --</option>
                                     @foreach($suppliers as $sup)
-                                        <option value="{{ $sup->id }}">{{ $sup->name }}</option>
+                                        <option value="{{ $sup->id }}" {{ $asset->supplier_id == $sup->id ? 'selected' : '' }}>
+                                            {{ $sup->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-luxury-gold">
@@ -121,16 +118,18 @@
                         <div class="grid grid-cols-2 gap-5">
                             <div class="group">
                                 <label class="label-modern">Tanggal Beli</label>
-                                <input type="date" name="purchase_date" required class="input-modern cursor-pointer">
+                                <input type="date" name="purchase_date" 
+                                       value="{{ old('purchase_date', \Carbon\Carbon::parse($asset->purchase_date)->format('Y-m-d')) }}" 
+                                       required class="input-modern cursor-pointer">
                             </div>
                             <div class="group">
                                 <label class="label-modern">Status Awal</label>
                                 <div class="relative">
                                     <select name="status" class="input-modern appearance-none cursor-pointer">
-                                        <option value="available">Tersedia</option>
-                                        <option value="deployed">Digunakan</option>
-                                        <option value="maintenance">Perbaikan</option>
-                                        <option value="broken">Rusak</option>
+                                        <option value="available" {{ $asset->status == 'available' ? 'selected' : '' }}>Tersedia</option>
+                                        <option value="deployed" {{ $asset->status == 'deployed' ? 'selected' : '' }}>Digunakan</option>
+                                        <option value="maintenance" {{ $asset->status == 'maintenance' ? 'selected' : '' }}>Perbaikan</option>
+                                        <option value="broken" {{ $asset->status == 'broken' ? 'selected' : '' }}>Rusak</option>
                                     </select>
                                     <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-luxury-gold">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -141,20 +140,24 @@
 
                         <div class="group">
                             <label class="label-modern">Foto Aset</label>
-                            <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-luxury-gold/20 border-dashed rounded-2xl cursor-pointer bg-black/20 hover:bg-luxury-gold/5 hover:border-luxury-gold hover:scale-[1.01] transition-all duration-300 group-hover:shadow-gold-sm">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg class="w-8 h-8 mb-3 text-luxury-gold/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                    <p class="text-xs text-gray-400">Klik untuk upload <span class="font-bold text-luxury-gold">Gambar</span></p>
+                            <div class="flex items-center gap-4 mt-2">
+                                <div class="w-20 h-20 rounded-2xl overflow-hidden border-2 border-luxury-gold/20 bg-black shrink-0 relative shadow-lg">
+                                    @if($asset->image)
+                                        <img src="{{ asset('storage/' . $asset->image) }}" class="w-full h-full object-cover">
+                                    @else
+                                        <div class="w-full h-full flex items-center justify-center text-[10px] text-gray-500 font-mono">NO IMG</div>
+                                    @endif
                                 </div>
-                                <input type="file" name="image" class="hidden" accept="image/*" /> 
-                            </label>
+                                <input type="file" name="image" class="input-modern border-dashed pt-3 flex-1 text-xs file:mr-4 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-luxury-gold/20 file:text-luxury-gold hover:file:bg-luxury-gold/30">
+                            </div>
+                            <p class="text-[10px] text-gray-500 mt-2">*Biarkan kosong jika tidak ingin mengubah foto.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="pt-6 border-t border-white/5">
                     <button type="submit" class="w-full py-4 bg-gradient-to-r from-luxury-gold to-luxury-gold-dark text-black font-black text-sm tracking-widest uppercase rounded-xl shadow-gold-glow hover:scale-[1.01] active:scale-[0.99] transition-all duration-300">
-                        Simpan Data Aset
+                        Simpan Perubahan
                     </button>
                 </div>
             </form>
@@ -188,7 +191,7 @@
             box-shadow: 0 0 20px -5px rgba(212, 175, 55, 0.2); 
         }
         
-        /* Memutihkan Ikon Kalender */
+        /* Ikon Kalender Putih */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
             cursor: pointer;
