@@ -31,19 +31,27 @@ Dibangun menggunakan **Laravel 11** dan **Tailwind CSS**, aplikasi ini menawarka
 #### 👨‍💼 1. Administrator (IT Manager)
 * **Executive Dashboard:** Melihat total aset, nilai valuasi aset (Rupiah), dan aset yang sedang dipinjam (Deployed).
 * **Manajemen Data Master:**
-    * **Kategori:** Mengelompokkan aset (Laptop, Server, ATK).
-    * **Lokasi:** Mengatur denah penyimpanan (Ruang Server, Gudang).
-    * **Supplier:** Mendata vendor tempat pembelian.
+    * **Kategori:** Mengelompokkan aset (Laptop, Server, ATK).
+    * **Lokasi:** Mengatur denah penyimpanan (Ruang Server, Gudang).
+    * **Supplier:** Mendata vendor tempat pembelian.
 * **Registrasi Aset:** Input barang dengan upload foto, serial number, dan harga.
 * **Sirkulasi Aset:**
-    * **Peminjaman (Check-out):** Menyerahkan aset ke karyawan (Stok berkurang otomatis).
-    * **Pengembalian (Check-in):** Mengembalikan status aset menjadi *Available*.
+    * **Peminjaman (Check-out):** Menyerahkan aset ke karyawan (Stok berkurang otomatis).
+    * **Pengembalian (Check-in):** Mengembalikan status aset menjadi *Available*.
 * **Laporan PDF:** Cetak laporan inventaris otomatis menggunakan DomPDF.
 
 #### 🧑‍💻 2. Staff (Karyawan)
 * **My Inventory Dashboard:** Melihat daftar barang yang sedang dipinjam/dipegang saat ini.
 * **Katalog Aset:** Melihat daftar aset perusahaan (Read Only / Tanpa akses edit).
 * **Transparansi:** Memastikan data barang yang tercatat sesuai dengan fisik yang diterima.
+
+---
+
+## 📊 Desain Database (ERD)
+
+Berikut adalah skema relasi antar tabel dalam aplikasi ini:
+
+![ERD SIMA IT](erd-sima.png)
 
 ---
 
@@ -71,7 +79,6 @@ Gunakan akun berikut untuk simulasi UKK:
 | **Staff IT** | `staff@cyber.id` | `password123` | **Read Only** & Personal Inventory |
 
 ---
-
 
 ## ⚙️ Panduan Instalasi (Cara Menjalankan Project)
 
@@ -107,18 +114,3 @@ php artisan storage:link
 
 # 9. Jalankan Server Laravel
 php artisan serve
-
-
-***
-
-### 💡 Cara Update ke GitHub:
-Setelah kamu paste kode di atas ke file `README.md` di laptop, jangan lupa kirim ke GitHub biar aman:
-
-```bash
-git add README.md
-git commit -m "Update panduan instalasi lengkap"
-git push
-
-   ## 📊 Desain Database (ERD)
-
-![ERD SIMA IT](erd-sima.png)
